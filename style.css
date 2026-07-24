@@ -359,7 +359,7 @@ a.stat:hover .stat-big { color: var(--lav); }
 .lets-talk {
   display: inline-block;
   font-family: var(--display); font-weight: 700;
-  font-size: clamp(52px, 14vw, 230px);
+  font-size: clamp(44px, 8.4vw, 110px);
   line-height: 0.92; letter-spacing: -0.02em;
   text-transform: uppercase;
 }
