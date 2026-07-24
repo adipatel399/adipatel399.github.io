@@ -366,7 +366,8 @@ a.stat:hover .stat-big { color: var(--lav); }
 .lets-talk .line-inner { transform: translateY(0); }
 .lets-talk:hover .accent { color: var(--violet); }
 .lets-talk .line { position: relative; }
-.contact-mail { margin-top: 30px; color: var(--dim); font-size: 14px; letter-spacing: 2px; }
+.contact-mail { display: inline-block; margin-top: 30px; color: var(--dim); font-size: 14px; letter-spacing: 2px; transition: color 0.3s; }
+.contact-mail:hover { color: var(--lav); }
 .socials { display: flex; gap: 34px; justify-content: center; margin-top: 56px; flex-wrap: wrap; }
 .socials a {
   font-weight: 700; font-size: 13px; letter-spacing: 2.5px; color: var(--dim);
