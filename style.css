@@ -333,6 +333,20 @@ a.stat:hover .stat-big { color: var(--lav); }
   font-size: clamp(42px, 5.4vw, 74px); line-height: 1;
   letter-spacing: -0.01em; margin-bottom: 26px;
 }
+.panel-title a:not(.live-badge) { color: inherit; transition: color 0.3s; }
+.panel-title a:not(.live-badge):hover { color: var(--lav); }
+.live-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  vertical-align: middle; margin-left: 18px; transform: translateY(-0.35em);
+  font-family: var(--mono); font-weight: 500; font-size: 13px; letter-spacing: 1.5px;
+  color: #5fe3a1;
+  border: 1px solid rgba(95,227,161,0.4); border-radius: 999px;
+  padding: 6px 14px;
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+}
+.live-badge:hover { background: rgba(95,227,161,0.12); box-shadow: 0 0 22px rgba(95,227,161,0.28); color: #7ff0b8; }
+.live-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #5fe3a1; box-shadow: 0 0 10px #5fe3a1; animation: livePulse 1.6s ease-in-out infinite; }
+@keyframes livePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.7); } }
 .panel-desc { color: var(--dim); font-size: 16px; max-width: 460px; flex: 1; }
 .panel-tools { font-size: 12px; color: rgba(196,181,253,0.7); letter-spacing: 1px; margin: 22px 0; }
 .panel-link {
