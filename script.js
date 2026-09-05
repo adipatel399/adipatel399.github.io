@@ -52,7 +52,7 @@ if (hasGsap) {
 /* ============ Statement: split into words, light up on scroll ============ */
 (() => {
   const st = document.getElementById("statement");
-  const KEY = new Set(["AI", "engineer", "RAG", "10K+", "JARVIS", "BNP", "Paribas", "ships.", "8.41."]);
+  const KEY = new Set(["AI", "engineer", "RAG", "10K+", "Rocky", "BNP", "Paribas", "ships.", "8.41."]);
   const words = st.textContent.trim().split(/\s+/);
   st.innerHTML = words
     .map((w) => `<span class="word${KEY.has(w) ? " key" : ""}">${w}</span>`)
