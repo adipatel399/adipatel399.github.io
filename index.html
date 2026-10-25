@@ -10,6 +10,8 @@
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.js"}}</script>
+  <noscript><style>#preloader{display:none}.line-inner{transform:none}</style></noscript>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 </head>
 <body>
@@ -28,10 +30,6 @@
     </div>
   </div>
 
-  <!-- custom cursor -->
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <!-- ambient glow orbs -->
   <div class="orb orb-1" aria-hidden="true"></div>
   <div class="orb orb-2" aria-hidden="true"></div>
@@ -40,8 +38,9 @@
 
   <!-- ================= NAV ================= -->
   <nav id="navbar">
-    <a href="#top" class="logo">adipatel<span class="accent">.dev</span></a>
-    <ul class="nav-links">
+    <a href="#top" class="logo" aria-label="Aditya Patel — home">ADITYA PATEL<span class="accent">.</span></a>
+    <button class="menu-toggle mono" aria-expanded="false" aria-controls="navLinks"><span>MENU</span><i aria-hidden="true"></i></button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about" data-hover>ABOUT</a></li>
       <li><a href="#career" data-hover>CAREER</a></li>
       <li><a href="#work" data-hover>WORK</a></li>
@@ -57,11 +56,10 @@
       <span class="line"><span class="line-inner">PATEL<span class="accent">.</span></span></span>
     </h1>
 
-    <div class="hero-core" aria-hidden="true">
-      <div class="core-glow"></div>
-      <div class="core-ring"></div>
-      <div class="core-ring r2"></div>
-      <div class="core"></div>
+    <div class="hero-portrait" id="heroPortrait" role="img" aria-label="Interactive upper-body portrait with a slight smile, backward baseball cap, sunglasses and a light-blue polo">
+      <div class="portrait-aura"></div>
+      <canvas id="portraitCanvas"></canvas>
+      <img class="portrait-fallback" src="assets/avatar/portrait-poster.webp?v=reference-polo-final" alt="" aria-hidden="true" width="900" height="1000" fetchpriority="high">
     </div>
 
     <div class="hero-title">
@@ -92,7 +90,7 @@
       I'm an AI engineer who blends technical depth with builder's instinct.
       From RAG systems searching 10K+ documents at BNP Paribas to a hands-free
       Rocky running on my Mac, I turn ambitious ideas into software that ships.
-      Fresh B.Tech ICT graduate from PDEU, CGPA 8.41.
+      Fresh B.Tech ICT graduate from PDEU.
     </p>
 
     <div class="stat-row">
@@ -104,10 +102,6 @@
         <span class="stat-big" data-count="1879">0</span>
         <span class="stat-sub mono">CODECHEF · 4★</span>
       </a>
-      <div class="stat">
-        <span class="stat-big" data-count="8.41" data-decimals="2">0</span>
-        <span class="stat-sub mono">CGPA · PDEU ICT</span>
-      </div>
     </div>
   </section>
 
@@ -136,7 +130,7 @@
         <div class="career-dot"></div>
         <div class="career-body">
           <h3>Data Science Intern</h3>
-          <p class="career-org">The Guardian Group, Mumbai</p>
+          <p class="career-org">Ananta Capital, Mumbai</p>
           <p class="career-desc">
             Predictive models at 85%+ accuracy for campaign forecasting. Cross-platform marketing
             analytics over Shopify, Google &amp; Meta Ads. ROAS/CAC-driven budget allocation improved
@@ -164,167 +158,129 @@
 
   <!-- ================= WORK ================= -->
   <section id="work">
-    <h2 class="display-h work-h">My <span class="accent-grad">Work</span></h2>
+    <div class="work-sticky">
+    <div class="work-heading"><h2 class="display-h work-h">My <span class="accent-grad">Work.</span></h2></div>
     <div class="work-wrap">
       <div class="work-track" id="workTrack">
 
         <article class="panel">
           <span class="panel-num" aria-hidden="true">01</span>
+          <p class="panel-cat mono">ON-DEVICE AI / ACCESSIBILITY</p>
+          <h3 class="panel-title"><a href="https://github.com/adipatel399/Sarathi.AI" target="_blank" rel="noopener" data-hover>SARATHI.AI</a></h3>
+          <p class="panel-desc">An on-device AI guide for elderly Indians. Explains messages and documents in Hindi or English, replies with voice notes, flags likely scams, and alerts family through Telegram.</p>
+          <p class="panel-tools mono">Python · Qwen3-4B · MLX LoRA · Telegram · Apple Vision OCR</p>
+          <a class="panel-link" href="https://github.com/adipatel399/Sarathi.AI" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
+        </article>
+
+        <article class="panel">
+          <span class="panel-num" aria-hidden="true">02</span>
           <p class="panel-cat mono">VOICE AI / AGENTS</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/Rocky" target="_blank" rel="noopener" data-hover>ROCKY</a></h3>
-          <p class="panel-desc">
-            A local, voice-controlled AI companion for macOS with a wake word, a rock-alien
-            personality straight out of Project Hail Mary, a holographic 3D globe, and real hands
-            on your computer. Say "Rocky" and he wakes, talks back in character, and actually
-            acts: opens apps, searches the web, writes files, sees your screen, all through a
-            persistent Claude agent with a live HUD.
-          </p>
+          <p class="panel-desc">A hands-free macOS AI companion with local wake-word detection and speech recognition. A persistent Claude agent opens apps, searches the web, writes files, and sees your screen through a live HUD.</p>
           <p class="panel-tools mono">Python · Claude Code CLI · Whisper · openWakeWord · ONNX</p>
           <a class="panel-link" href="https://github.com/adipatel399/Rocky" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">02</span>
+          <span class="panel-num" aria-hidden="true">03</span>
           <p class="panel-cat mono">ML / FULL-STACK · SHIPPED</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/Health.AI" target="_blank" rel="noopener" data-hover>Health.AI</a><a class="live-badge" href="https://health-ai-xck8.onrender.com/" target="_blank" rel="noopener" data-hover><span class="dot"></span>LIVE ↗</a></h3>
-          <p class="panel-desc">
-            A shipped health platform: SMOTE-balanced Random Forest at 94.7% accuracy for
-            disease classification, Ollama LLM for NLP health advice, Google Calendar reminders,
-            diet plans and a store locator in a Flask app.
-          </p>
+          <p class="panel-desc">A Flask health platform with disease classification, Ollama-powered explanations, Google Calendar reminders, diet plans, and a store locator. Its SMOTE-balanced Random Forest achieved 94.7% accuracy.</p>
           <p class="panel-tools mono">Python · Scikit-learn · Ollama · Flask</p>
           <a class="panel-link" href="https://github.com/adipatel399/Health.AI" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">03</span>
+          <span class="panel-num" aria-hidden="true">04</span>
           <p class="panel-cat mono">TEAM TOOLS</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/TrackRecord" target="_blank" rel="noopener" data-hover>TRACKRECORD</a></h3>
-          <p class="panel-desc">
-            Estimate accountability for teams. Records a delivery commitment the moment it's
-            made, ideally by speaking one sentence, and scores it against what actually
-            happened, so "it'll be done Thursday" finally carries information. Backed by
-            72 tests, including one that proves sandbaggers can't beat honest estimators.
-          </p>
+          <p class="panel-desc">Accountability for team estimates. Records promised delivery dates, compares them with actual outcomes, and rewards honest forecasting. Backed by 72 tests, including a check against sandbagging.</p>
           <p class="panel-tools mono">Python · NLP · Standard Library Only</p>
           <a class="panel-link" href="https://github.com/adipatel399/TrackRecord" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">04</span>
+          <span class="panel-num" aria-hidden="true">05</span>
           <p class="panel-cat mono">AI INFRASTRUCTURE</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/plug" target="_blank" rel="noopener" data-hover>PLUG</a></h3>
-          <p class="panel-desc">
-            One API for the entire web. Turns any site into structured JSON an AI agent can
-            call, even ones that never shipped an API: a real cloud browser loads the page,
-            an LLM extracts the fields you asked for, and successful reads self-heal into
-            reusable recipes. Ships an MCP server so any agent can read any URL.
-          </p>
+          <p class="panel-desc">One API for websites without APIs. A cloud browser and LLM turn pages into structured JSON, build reusable extraction recipes, and expose them to AI agents through MCP.</p>
           <p class="panel-tools mono">TypeScript · LLM Extraction · MCP</p>
           <a class="panel-link" href="https://github.com/adipatel399/plug" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">05</span>
+          <span class="panel-num" aria-hidden="true">06</span>
           <p class="panel-cat mono">DEV TOOL</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/NodeLink" target="_blank" rel="noopener" data-hover>NODELINK</a></h3>
-          <p class="panel-desc">
-            A visual workflow builder for designing and validating AI pipelines:
-            drag nodes, wire them up and validate the graph on an interactive canvas.
-          </p>
+          <p class="panel-desc">A visual builder for AI pipelines. Drag nodes onto a canvas, connect them into workflows, and validate the resulting graph before moving to implementation.</p>
           <p class="panel-tools mono">JavaScript · Canvas · Graphs</p>
           <a class="panel-link" href="https://github.com/adipatel399/NodeLink" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">06</span>
+          <span class="panel-num" aria-hidden="true">07</span>
           <p class="panel-cat mono">AGENTS / AUTOMATION</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/JobAgent" target="_blank" rel="noopener" data-hover>JOB&nbsp;AGENT</a></h3>
-          <p class="panel-desc">
-            An AI job-hunting agent that parses resumes and automates the
-            discovery-to-application pipeline end to end.
-          </p>
+          <p class="panel-desc">An AI job-hunting agent that reads resumes and automates the pipeline from discovering relevant roles to preparing applications and coordinating outreach.</p>
           <p class="panel-tools mono">Python · Agentic AI · Automation</p>
           <a class="panel-link" href="https://github.com/adipatel399/JobAgent" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">07</span>
+          <span class="panel-num" aria-hidden="true">08</span>
           <p class="panel-cat mono">LLM / CODEGEN</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/Python_Code_Generator_App" target="_blank" rel="noopener" data-hover>PY&nbsp;GEN</a></h3>
-          <p class="panel-desc">
-            Describe what you need in plain English and it writes a working
-            Python script for your requirement.
-          </p>
+          <p class="panel-desc">A plain-English Python code generator. Describe a task and get a script tailored to the requirement through an LLM-powered web interface.</p>
           <p class="panel-tools mono">LLM · Codegen · Web App</p>
           <a class="panel-link" href="https://github.com/adipatel399/Python_Code_Generator_App" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">08</span>
+          <span class="panel-num" aria-hidden="true">09</span>
           <p class="panel-cat mono">MACHINE LEARNING</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/Loan_status-prediction-system" target="_blank" rel="noopener" data-hover>LOAN&nbsp;ML</a></h3>
-          <p class="panel-desc">
-            Loan approval prediction with full EDA, feature engineering and
-            model evaluation on applicant data.
-          </p>
+          <p class="panel-desc">A loan approval prediction project covering exploratory analysis, feature engineering, and model evaluation on applicant data using Scikit-learn and Jupyter.</p>
           <p class="panel-tools mono">Scikit-learn · EDA · Jupyter</p>
           <a class="panel-link" href="https://github.com/adipatel399/Loan_status-prediction-system" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
         <article class="panel">
-          <span class="panel-num" aria-hidden="true">09</span>
+          <span class="panel-num" aria-hidden="true">10</span>
           <p class="panel-cat mono">DATA ENGINEERING</p>
           <h3 class="panel-title"><a href="https://github.com/adipatel399/Amazon_web_scrapping" target="_blank" rel="noopener" data-hover>SCRAPER</a></h3>
-          <p class="panel-desc">
-            Automated Amazon scraping pipeline extracting structured product
-            data for pricing and trend analysis.
-          </p>
+          <p class="panel-desc">An automated Amazon product-data pipeline. Extracts structured listings with Python and BeautifulSoup for pricing comparisons and trend analysis in Pandas.</p>
           <p class="panel-tools mono">Python · BeautifulSoup · Pandas</p>
           <a class="panel-link" href="https://github.com/adipatel399/Amazon_web_scrapping" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
         </article>
 
-        <article class="panel">
-          <span class="panel-num" aria-hidden="true">10</span>
-          <p class="panel-cat mono">SQL</p>
-          <h3 class="panel-title"><a href="https://github.com/adipatel399/Data_Cleaning_with_mysql" target="_blank" rel="noopener" data-hover>SQL&nbsp;CLEAN</a></h3>
-          <p class="panel-desc">
-            SQL-first data cleaning: deduplication, standardization and null
-            handling on raw datasets, pure MySQL.
-          </p>
-          <p class="panel-tools mono">MySQL · Data Wrangling</p>
-          <a class="panel-link" href="https://github.com/adipatel399/Data_Cleaning_with_mysql" target="_blank" rel="noopener" data-hover>GITHUB ↗</a>
-        </article>
-
-        <article class="panel panel-last">
-          <p class="panel-cat mono">AND MORE ON</p>
-          <a class="panel-title panel-gh" href="https://github.com/adipatel399?tab=repositories" target="_blank" rel="noopener" data-hover>GITHUB&nbsp;↗</a>
-        </article>
-
       </div>
+    </div>
+    <div class="work-controls"><button id="workPrev" aria-label="Previous project">←</button><button id="workNext" aria-label="Next project">→</button></div>
     </div>
   </section>
 
   <!-- ================= TECHSTACK ================= -->
   <section id="stack">
     <h2 class="display-h center">MY TECHSTACK</h2>
-    <p class="stack-hint mono">grab a ball, throw it around</p>
-    <div id="stackWrap"><canvas id="stackCanvas"></canvas></div>
+    <p class="stack-hint mono">touch, drag, throw. go on.</p>
+    <button class="stack-reset mono" id="resetStack">↻ SHAKE THINGS UP</button>
+    <div id="stackWrap"><canvas id="stackCanvas" aria-label="Interactive skill balls. Python, C++, Java, JavaScript, SQL, LangChain, RAG, LLMs, Docker, AWS, Flask, Power BI, Scikit-learn, Pandas, Git and NLP."></canvas></div>
   </section>
 
   <!-- ================= CONTACT ================= -->
   <section id="contact">
-    <p class="sec-label mono">● GOT AN IDEA?</p>
-    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=pateladitya4999@gmail.com" target="_blank" rel="noopener" class="lets-talk" id="letsTalk" data-hover>
+    <p class="sec-label mono">HAVE SOMETHING IN MIND?</p>
+    <p class="contact-intro">Good things start with a conversation.</p>
+    <a href="mailto:pateladitya4999@gmail.com" target="_blank" rel="noopener" class="lets-talk" id="letsTalk" data-hover>
       <span class="line"><span class="line-inner">LET'S</span></span>
       <span class="line"><span class="line-inner">CONNECT<span class="accent">.</span></span></span>
     </a>
-    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=pateladitya4999@gmail.com" target="_blank" rel="noopener" class="contact-mail mono" data-hover>pateladitya4999@gmail.com</a>
+    <a href="mailto:pateladitya4999@gmail.com" target="_blank" rel="noopener" class="contact-mail mono" data-hover>pateladitya4999@gmail.com</a>
     <div class="socials">
-      <a href="https://github.com/adipatel399" target="_blank" rel="noopener" data-hover>GITHUB</a>
-      <a href="https://www.linkedin.com/in/aditya399/" target="_blank" rel="noopener" data-hover>LINKEDIN</a>
-      <a href="https://codeforces.com/profile/Adipatel" target="_blank" rel="noopener" data-hover>CODEFORCES</a>
-      <a href="https://www.codechef.com/users/adipatel_ict" target="_blank" rel="noopener" data-hover>CODECHEF</a>
+      <a href="https://github.com/adipatel399" target="_blank" rel="noopener" data-hover>GITHUB <span>↗</span></a>
+      <a href="https://www.linkedin.com/in/aditya399/" target="_blank" rel="noopener" data-hover>LINKEDIN <span>↗</span></a>
+      <a href="https://codeforces.com/profile/Adipatel" target="_blank" rel="noopener" data-hover>CODEFORCES <span>↗</span></a>
+      <a href="https://www.codechef.com/users/adipatel_ict" target="_blank" rel="noopener" data-hover>CODECHEF <span>↗</span></a>
     </div>
   </section>
 
@@ -333,9 +289,8 @@
     <span class="mono">DESIGNED &amp; BUILT WITH ⚡</span>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
+  <script src="assets/vendor/matter.min.js"></script>
   <script src="script.js"></script>
+  <script type="module" src="portrait.js"></script>
 </body>
 </html>
