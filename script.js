@@ -64,7 +64,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
   function fit() {
     travel = Math.max(0, track.scrollWidth - wrap.clientWidth);
-    journey = Math.max(1, travel * .58);
+    journey = Math.max(1, travel * (innerWidth > 760 ? 1 : .58));
     section.style.setProperty('--journey', `${journey}px`);
     update();
   }

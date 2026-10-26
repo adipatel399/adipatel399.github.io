@@ -39,7 +39,7 @@ async function buildPortrait() {
   const loader = new GLTFLoader().setDRACOLoader(decoder);
   let gltf;
   try {
-    gltf = await loader.loadAsync('./assets/avatar/portrait.glb?v=reference-polo-final');
+    gltf = await loader.loadAsync('./assets/avatar/portrait.glb?v=wrap-collar');
   } finally {
     decoder.dispose();
   }

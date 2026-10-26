@@ -335,24 +335,37 @@ def front_surface(x,y,z):
     return max(z,-hit.y/.4+.035) if hit else z
 
 def garment(ob):ob['body_attachment']=True;return ob
-# One continuous folded knit collar wraps the neck and lies against the shoulders.
-# The front ends taper toward the open placket, with a soft rolled fold.
-vertices=[];quads=[];steps=96;rows=8
+# Fit the entire collar to the real neck and shoulder surface. The previous
+# fixed ellipse was inside the neck at the sides, leaving only the front visible.
+neck_surface=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get())
+def radial_surface(tree,a,y):
+    direction=Vector((math.sin(a),0,math.cos(a)))
+    center=Vector((0,y,.15))
+    start=coord(center+direction*4)
+    ray=Vector((-direction.x, direction.z,0))
+    hit,normal,index,dist=tree.ray_cast(start,ray)
+    if hit is None:return .80
+    native=Vector((hit.x/.4,hit.z/.4+3.7,-hit.y/.4))
+    return (native-center).dot(direction)
+vertices=[];quads=[];steps=128;rows=12
 for row in range(rows+1):
     t=row/rows
     for i in range(steps+1):
         u=i/steps;a=.20+u*(math.tau-.40)
-        outer_a=.52+u*(math.tau-1.04)
-        inner=Vector((.63*math.sin(a),6.38-.16*max(0,math.cos(a))**4,.18+.77*math.cos(a)))
-        outer=Vector((.88*math.sin(outer_a),6.10-.32*max(0,math.cos(a))**5,.18+1.23*math.cos(outer_a)))
+        outer_a=.48+u*(math.tau-.96)
+        top_y=6.48-.15*max(0,math.cos(a))**4
+        outer_y=6.32-.54*max(0,math.cos(a))**5
+        inner_r=radial_surface(neck_surface,a,top_y)+.055
+        outer_r=min(inner_r+.22+.12*max(0,math.cos(a)), max(radial_surface(neck_surface,outer_a,outer_y),radial_surface(surface,outer_a,outer_y))+.065)
+        inner=Vector((inner_r*math.sin(a),top_y,.15+inner_r*math.cos(a)))
+        outer=Vector((outer_r*math.sin(outer_a),outer_y,.15+outer_r*math.cos(outer_a)))
         q=inner.lerp(outer,t)
-        if q.z>.65:q.z=front_surface(q.x,q.y,q.z)
-        q.y+=.055*math.sin(math.pi*t)
+        q.y+=.07*math.sin(math.pi*t)
         vertices.append(tuple(q))
         if row and i:
             k=row*(steps+1)+i;quads.append((k,k-1,k-steps-2,k-steps-1))
 collar=garment(mesh_native('Folded polo collar',vertices,quads,collar_mat))
-solid=collar.modifiers.new('Soft knit thickness','SOLIDIFY');solid.thickness=.003
+solid=collar.modifiers.new('Soft knit thickness','SOLIDIFY');solid.thickness=.006
 bpy.context.view_layer.objects.active=collar;bpy.ops.object.modifier_apply(modifier=solid.name)
 # Placket follows the actual draped shirt, avoiding a floating button strip.
 vertices=[];quads=[]
